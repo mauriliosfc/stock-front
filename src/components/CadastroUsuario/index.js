@@ -1,32 +1,38 @@
-import React, { Component } from "react";
-
+import React, { Component } from 'react'
+import LoadingOverlay from 'react-loading-overlay';
 import {
     Form, Button, Container, Row, Col
 } from "react-bootstrap"
-import "./Login.css"
-import auth from "../../services/auth"
-import { Redirect } from "react-router-dom";
-import LoadingOverlay from 'react-loading-overlay';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import User from '../../services/User'
+import { Redirect } from 'react-router-dom';
+const user = new User();
 
-const Auth = new auth()
+const notify = (msg) => toast(msg);
 
-class Login extends Component {
+export default class CadastroUsuario extends Component {
 
     state = {
-        email: "",
-        senha: "",
-        redirect: false,
-        loading: false
+        nome: null,
+        email: null,
+        senha: null,
+        loading: false,
+        redirect: false
     }
 
-    login = async (event) => {
+    cadastrar = async (event) => {
         event.preventDefault();
         this.setState({ loading: true });
-        let session = await Auth.login(this.state.email, this.state.senha)
-        localStorage.setItem('auth', session.auth);
-        localStorage.setItem('token', session.token);
-        this.setState({ redirect: true });
-        this.setState({ loading: false });
+        try {
+            await user.create(this.state.nome, this.state.email, this.state.senha)
+            notify("Cadastro realizado com sucesso!")
+        } catch (error) {
+            notify("Erro ao cadastrar Usuário");
+        } finally {
+            this.setState({ redirect: true });
+            this.setState({ loading: false });
+        }
     }
 
     handleChange = name => event => {
@@ -37,7 +43,7 @@ class Login extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to={'/app'} />
+            return <Redirect to={'/'} />
         }
         return (
             <LoadingOverlay
@@ -45,10 +51,20 @@ class Login extends Component {
                 spinner
                 text='Carregando...'
             >
+                <ToastContainer />
                 <Container>
                     <Row className="justify-content-md-center">
                         <Col xs lg="4" className="login">
                             <Form>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Nome</Form.Label>
+                                    <Form.Control
+                                        type="nome"
+                                        placeholder="Enter nome"
+                                        value={this.state.nome}
+                                        onChange={this.handleChange('nome')}
+                                    />
+                                </Form.Group>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
@@ -68,11 +84,11 @@ class Login extends Component {
                                     />
                                 </Form.Group>
                                 <Button
-                                    onClick={this.login}
+                                    onClick={this.cadastrar}
                                     block variant="primary"
                                     type="submit"
                                 >
-                                    Acessar
+                                    Cadastrar
                             </Button>
                             </Form>
                         </Col>
@@ -82,5 +98,3 @@ class Login extends Component {
         )
     }
 }
-
-export default Login
