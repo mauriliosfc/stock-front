@@ -5,7 +5,7 @@ import {
 } from "react-bootstrap"
 import "./Login.css"
 import auth from "../../services/auth"
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import LoadingOverlay from 'react-loading-overlay';
 
 const Auth = new auth()
@@ -15,7 +15,7 @@ class Login extends Component {
     state = {
         email: "",
         senha: "",
-        redirect: false,
+        redirect: null,
         loading: false
     }
 
@@ -25,7 +25,7 @@ class Login extends Component {
         let session = await Auth.login(this.state.email, this.state.senha)
         localStorage.setItem('auth', session.auth);
         localStorage.setItem('token', session.token);
-        this.setState({ redirect: true });
+        this.setState({ redirect: '/app' });
         this.setState({ loading: false });
     }
 
@@ -35,9 +35,13 @@ class Login extends Component {
         });
     };
 
+    redirectToCadastro = event => {
+        this.setState({ redirect: '/CadastroUsuario' })
+    }
+
     render() {
         if (this.state.redirect) {
-            return <Redirect to={'/app'} />
+            return <Redirect to={this.state.redirect} />
         }
         return (
             <LoadingOverlay
@@ -69,16 +73,24 @@ class Login extends Component {
                                 </Form.Group>
                                 <Button
                                     onClick={this.login}
-                                    block variant="primary"
+                                    block
+                                    variant="primary"
                                     type="submit"
                                 >
                                     Acessar
-                            </Button>
+                                </Button>
+                                <br></br>
+                                <Button
+                                    onClick={this.redirectToCadastro}
+                                    variant="success"
+                                >
+                                    Cadastrar
+                                </Button>
                             </Form>
                         </Col>
                     </Row>
                 </Container >
-            </LoadingOverlay>
+            </LoadingOverlay >
         )
     }
 }
