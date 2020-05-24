@@ -5,7 +5,7 @@ import {
 } from "react-bootstrap"
 import "./Login.css"
 import auth from "../../services/auth"
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import LoadingOverlay from 'react-loading-overlay';
 
 const Auth = new auth()
