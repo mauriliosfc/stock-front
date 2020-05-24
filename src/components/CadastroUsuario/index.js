@@ -7,8 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import User from '../../services/User'
 import { Redirect } from 'react-router-dom';
-const user = new User();
 
+const user = new User();
 const notify = (msg) => toast(msg);
 
 export default class CadastroUsuario extends Component {
