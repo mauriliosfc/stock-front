@@ -69,7 +69,7 @@ class ListaProdutos extends Component {
                                     <td>{item.quantidade}</td>
                                     <td>{item.preco}</td>
                                     <td><Button
-                                        variant="primary"
+                                        variant="danger"
                                         onClick={() => this.delete(item.id)}
                                     >
                                         Delete
