@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import {
-    Form, Button, Container, Row, Col
+    Form, Button, Container, Row, Col, Image
 } from "react-bootstrap"
 import "./Login.css"
 import auth from "../../services/auth"
@@ -51,7 +51,9 @@ class Login extends Component {
             >
                 <Container>
                     <Row className="justify-content-md-center">
-                        <Col xs lg="4" className="login">
+
+                        <Col xs lg="4">
+                            <Image src="gestion-stock-png.png" className="logo" rounded />
                             <Form>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email</Form.Label>

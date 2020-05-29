@@ -1,3 +1,7 @@
 .login {
     margin-top: 200px;
 }
+
+.logo {
+    width: inherit !important;    
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import auth from './services/auth'
 import Login from "./components/Login"
 import CadastroUsuario from './components/CadastroUsuario'
+import ListaProdutos from './components/ListaProdutos'
+import CadastroProdutos from './components/CadastroProdutos'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 const Auth = new auth()
@@ -24,6 +26,8 @@ const Routes = () => (
             <Route exact path="/" component={Login} />
             <Route exact path="/CadastroUsuario" component={CadastroUsuario} />
             <PrivateRoute path="/app" component={() => <h1>Logado </h1>} />
+            <PrivateRoute exact path="/ListaProdutos" component={ListaProdutos} />
+            <PrivateRoute exact path="/CadastroProdutos" component={CadastroProdutos} />
         </Switch>
     </BrowserRouter>
 )
