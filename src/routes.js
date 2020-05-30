@@ -26,8 +26,8 @@ const Routes = () => (
             <Route exact path="/" component={Login} />
             <Route exact path="/CadastroUsuario" component={CadastroUsuario} />
             <PrivateRoute path="/app" component={() => <h1>Logado </h1>} />
-            <PrivateRoute exact path="/ListaProdutos" component={ListaProdutos} />
-            <PrivateRoute exact path="/CadastroProdutos" component={CadastroProdutos} />
+            <PrivateRoute exact path="/lista" component={ListaProdutos} />
+            <PrivateRoute exact path="/cadastro" component={CadastroProdutos} />
         </Switch>
     </BrowserRouter>
 )
